@@ -1,0 +1,9 @@
+[
+  {
+    "name": "org.shared.model.MyTableItem",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allPublicMethods": true
+  }
+]

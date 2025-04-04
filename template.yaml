@@ -1,0 +1,39 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Resources:
+
+  WriteToDbFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Environment:
+        Variables:
+          quarkus_lambda_handler: writeToDb
+          DISABLE_SIGNAL_HANDLERS: true
+      Runtime: provided.al2023
+      Timeout: 60
+      MemorySize: 512
+      CodeUri: target/function.zip
+      Handler: org.example.Handler::handleRequest
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref MyTable
+
+  MyTable:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: MyTable
+      KeySchema:
+        - AttributeName: PK
+          KeyType: HASH
+        - AttributeName: SK
+          KeyType: RANGE
+      AttributeDefinitions:
+        - AttributeName: PK
+          AttributeType: S
+        - AttributeName: SK
+          AttributeType: S
+      BillingMode: PAY_PER_REQUEST
+      TimeToLiveSpecification:
+        AttributeName: ttl
+        Enabled: true
