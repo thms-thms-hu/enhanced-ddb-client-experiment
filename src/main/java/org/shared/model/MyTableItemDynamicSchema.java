@@ -1,6 +1,5 @@
 package org.shared.model;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
 import lombok.NoArgsConstructor;
 import org.shared.model.utils.SchemaUtil;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
